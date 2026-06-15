@@ -23,6 +23,22 @@ class GameSprite(sprite.Sprite):
         window.blit(self.image, (self.rect.x, self.rect.y))
                 
 
+class Platform(GameSprite):
+    def __init__(self, x, y, widih, height, image_file, speed, keyU, keyD):
+        super().__init__(x, y, widih, height, image_file)
+        
+        self.speed = speed
+        self.keyU = keyU
+        self.keyD = keyD
+
+    def update(self):
+        keys = key.get_pressed()
+
+        if keys[self.keyU] and self.rect.y > 0:
+            self.rect.y -= self.speed
+
+        if keys[self.keyD] and self.rect.y < 800 - self.rect.height:
+            self.rect.y += self.speed
 
 while game:
     for e in event.get():
