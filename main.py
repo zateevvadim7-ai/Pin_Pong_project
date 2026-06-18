@@ -64,6 +64,13 @@ ball = Ball(350, 350, 100,100, 'tenis_ball.png', 5)
 
 platforms.add(platform_left,platform_right)
 
+# --- Текст ---
+font.init()
+font_ = font.Font(None, 75)
+left_win = font_.render('left player wins!', True, (255, 255, 255))
+right_win = font_.render('right player wins!', True, (255, 255, 255))
+
+
 # --- Циал игры ---
 while game:
     for e in event.get():
@@ -76,5 +83,10 @@ while game:
     ball.update()
     if sprite.spritecollide(ball, platforms, False):
         ball.speedx *= -1
+    
+    if ball.rect.x <= 0 - ball.rect.width:
+        window.blit(right_win, (170, 350)) 
+    if ball.rect.x >= 800:
+        window.blit(left_win, (170, 350)) 
     display.update()
     timer.tick(40)
