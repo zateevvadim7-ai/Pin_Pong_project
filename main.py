@@ -24,7 +24,6 @@ class GameSprite(sprite.Sprite):
                 
 
 # --- Класс Платформ ---
-
 class Platform(GameSprite):
     def __init__(self, x, y, widih, height, image_file, speed, keyU, keyD):
         super().__init__(x, y, widih, height, image_file)
@@ -58,7 +57,6 @@ class Ball(GameSprite):
             self.speedy *= -1
 
 # --- Визуал ---
-
 platform_left = Platform(10, 300 , 40, 200, "racket.png", 5, K_w, K_s)
 platform_right = Platform(750, 300 , 40, 200, "racket.png", 5, K_UP, K_DOWN)
 platforms = sprite.Group()
@@ -67,7 +65,6 @@ ball = Ball(350, 350, 100,100, 'tenis_ball.png', 5)
 platforms.add(platform_left,platform_right)
 
 # --- Циал игры ---
-
 while game:
     for e in event.get():
         if e.type == QUIT:
@@ -77,5 +74,7 @@ while game:
     platforms.update()
     ball.draw()
     ball.update()
+    if sprite.spritecollide(ball, platforms, False):
+        ball.speedx *= -1
     display.update()
     timer.tick(40)
