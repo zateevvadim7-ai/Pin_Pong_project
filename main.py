@@ -62,6 +62,7 @@ class Ball(GameSprite):
 platform_left = Platform(10, 300 , 40, 200, "racket.png", 5, K_w, K_s)
 platform_right = Platform(750, 300 , 40, 200, "racket.png", 5, K_UP, K_DOWN)
 platforms = sprite.Group()
+ball = Ball(350, 350, 100,100, 'tenis_ball.png', 5)
 
 platforms.add(platform_left,platform_right)
 
@@ -74,6 +75,7 @@ while game:
     window.fill(bg_c)
     platforms.draw(window)
     platforms.update()
-
+    ball.draw()
+    ball.update()
     display.update()
     timer.tick(40)
