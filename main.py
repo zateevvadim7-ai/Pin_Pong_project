@@ -11,7 +11,7 @@ bg_c = (128, 128, 128)
 timer = time.Clock()
 game = True
 
-# --- Класс GameSprit
+# --- Класс GameSprit ---
 class GameSprite(sprite.Sprite):
     def __init__(self, x,y , widih, height, image_file,*group):
         super().__init__(*group)    
@@ -22,6 +22,8 @@ class GameSprite(sprite.Sprite):
     def draw(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
                 
+
+# --- Класс Платформ ---
 
 class Platform(GameSprite):
     def __init__(self, x, y, widih, height, image_file, speed, keyU, keyD):
@@ -40,11 +42,30 @@ class Platform(GameSprite):
         if keys[self.keyD] and self.rect.y < 800 - self.rect.height:
             self.rect.y += self.speed
 
+# --- Класс мяча ---
+class Ball(GameSprite):
+    def __init__(self, x, y, widih, height, image_file, speed, *group):
+        super().__init__(x, y, widih, height, image_file, *group)
+
+        self.speedx = speed
+        self.speedy = speed
+
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+
+        if self.rect.y <= 0 or self.rect.y >= 800 - self.rect.height:
+            self.speedy *= -1
+
+# --- Визуал ---
+
 platform_left = Platform(10, 300 , 40, 200, "racket.png", 5, K_w, K_s)
 platform_right = Platform(750, 300 , 40, 200, "racket.png", 5, K_UP, K_DOWN)
 platforms = sprite.Group()
 
 platforms.add(platform_left,platform_right)
+
+# --- Циал игры ---
 
 while game:
     for e in event.get():
